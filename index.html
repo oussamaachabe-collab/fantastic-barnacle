@@ -118,6 +118,8 @@
     }
 
     .screen {
+      position: relative;
+      z-index: 40;
       display: grid;
       min-height: 100svh;
       padding: 104px 22px 56px;
@@ -161,11 +163,17 @@
     .hero-title,
     .mission-title {
       margin: 0;
-      color: var(--white);
+      color: var(--deep-purple);
       font-family: var(--font-display);
       font-size: clamp(3.2rem, 10vw, 7.6rem);
       line-height: .92;
       letter-spacing: 0;
+      text-shadow: 0 4px 18px rgba(255, 255, 255, .5);
+    }
+
+    .night-mode .hero-title,
+    .night-mode .mission-title {
+      color: var(--white);
       text-shadow: 0 16px 44px rgba(76, 29, 149, .35);
     }
 
@@ -180,10 +188,10 @@
       justify-content: center;
       min-height: 34px;
       padding: 8px 16px;
-      border: 1px solid rgba(255, 255, 255, .42);
+      border: 1px solid rgba(76, 29, 149, .28);
       border-radius: 999px;
-      color: rgba(255,255,255,.92);
-      background: rgba(255,255,255,.16);
+      color: var(--deep-purple);
+      background: rgba(255,255,255,.55);
       backdrop-filter: blur(14px);
       box-shadow: 0 12px 30px rgba(76,29,149,.14);
       font-weight: 800;
@@ -191,13 +199,19 @@
       text-transform: uppercase;
     }
 
+    .night-mode .eyebrow {
+      border: 1px solid rgba(255, 255, 255, .42);
+      color: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.16);
+    }
+
     .lead {
       width: min(100%, 680px);
       margin: 0 auto;
-      color: rgba(255,255,255,.91);
+      color: var(--ink);
       font-size: clamp(1rem, 2.4vw, 1.24rem);
       line-height: 1.7;
-      text-shadow: 0 10px 32px rgba(76, 29, 149, .24);
+      text-shadow: 0 2px 10px rgba(255, 255, 255, .4);
     }
 
     .glass {
@@ -237,7 +251,7 @@
     }
 
     .btn {
-      --button-bg: linear-gradient(135deg, #ff6fb1, #8b5cf6 58%, #62d6ff);
+      --button-bg: linear-gradient(135deg, #ff6fb1, #976cf7 58%, #62d6ff);
       position: relative;
       display: inline-flex;
       align-items: center;
@@ -247,9 +261,10 @@
       gap: 10px;
       padding: 15px 24px;
       border-radius: 999px;
-      color: var(--white);
+      color: var(--ink);
       background: var(--button-bg);
       box-shadow: 0 18px 38px rgba(76, 29, 149, .30), inset 0 1px 0 rgba(255,255,255,.32);
+      text-shadow: 0 1px 1px rgba(255,255,255,.4);
       font-weight: 900;
       cursor: pointer;
       transform: translateZ(0);
@@ -270,11 +285,12 @@
     .btn.secondary {
       --button-bg: linear-gradient(135deg, rgba(255,255,255,.90), rgba(255,255,255,.64));
       color: var(--deep-purple);
+      text-shadow: none;
       box-shadow: 0 16px 34px rgba(76, 29, 149, .18), inset 0 1px 0 rgba(255,255,255,.65);
     }
 
     .btn.danger {
-      --button-bg: linear-gradient(135deg, #ff7f8f, #a855f7);
+      --button-bg: linear-gradient(135deg, #ff7f8f, #b166f8);
     }
 
     .btn.disabled,
@@ -292,8 +308,8 @@
       place-items: center;
       border: 1px solid rgba(255,255,255,.35);
       border-radius: 999px;
-      background: rgba(255,255,255,.16);
-      color: var(--white);
+      background: rgba(255,255,255,.55);
+      color: var(--deep-purple);
       box-shadow: 0 12px 28px rgba(76, 29, 149, .18);
       backdrop-filter: blur(14px);
       cursor: pointer;
@@ -302,6 +318,15 @@
 
     .icon-btn:hover {
       transform: translateY(-2px) scale(1.06);
+      background: rgba(255,255,255,.72);
+    }
+
+    .night-mode .icon-btn {
+      background: rgba(255,255,255,.16);
+      color: var(--white);
+    }
+
+    .night-mode .icon-btn:hover {
       background: rgba(255,255,255,.25);
     }
 
@@ -315,14 +340,20 @@
       justify-content: space-between;
       width: min(calc(100% - 28px), 1040px);
       padding: 9px 10px 9px 16px;
-      border: 1px solid rgba(255,255,255,.30);
+      border: 1px solid rgba(76, 29, 149, .18);
       border-radius: 999px;
-      background: rgba(255,255,255,.13);
-      color: var(--white);
+      background: rgba(255,255,255,.55);
+      color: var(--deep-purple);
       box-shadow: 0 20px 60px rgba(76, 29, 149, .14);
       backdrop-filter: blur(18px);
       transform: translateX(-50%);
       transition: opacity .36s ease;
+    }
+
+    .night-mode .hud {
+      border: 1px solid rgba(255,255,255,.30);
+      background: rgba(255,255,255,.13);
+      color: var(--white);
     }
 
     .hud-title {
@@ -391,9 +422,14 @@
     .smoke-layer,
     .duck-lane,
     .fireworks-layer {
-      z-index: 70;
       overflow: hidden;
     }
+
+    .confetti-layer { z-index: 28; }
+    .balloon-layer { z-index: 24; }
+    .fireworks-layer { z-index: 26; }
+    .sparkle-layer { z-index: 66; }
+    .smoke-layer { z-index: 62; }
 
     .duck-lane {
       z-index: 20;
@@ -703,7 +739,7 @@
 
     .loading-message {
       min-height: 34px;
-      color: rgba(255,255,255,.94);
+      color: var(--ink);
       font-size: clamp(1.05rem, 2.4vw, 1.35rem);
       font-weight: 850;
     }
@@ -719,40 +755,136 @@
       animation: popIn .5s var(--spring) both;
     }
 
-    .video-card {
-      padding: clamp(10px, 2vw, 16px);
+    .scan-card {
+      width: min(100%, 760px);
     }
 
-    .video-frame {
+    .scan-panel {
+      display: grid;
+      gap: 22px;
+      justify-items: center;
+    }
+
+    .scanner-orb {
       position: relative;
-      overflow: hidden;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border-radius: 20px;
+      display: grid;
+      width: min(58vw, 220px);
+      aspect-ratio: 1;
+      place-items: center;
+      border-radius: 50%;
       background:
-        radial-gradient(circle at 24% 18%, rgba(255,231,122,.52), transparent 18rem),
-        radial-gradient(circle at 82% 16%, rgba(98,214,255,.34), transparent 18rem),
-        linear-gradient(135deg, rgba(76,29,149,.88), rgba(255,111,177,.75));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.22);
+        radial-gradient(circle at 36% 30%, rgba(255,255,255,.95), transparent 18%),
+        radial-gradient(circle at center, rgba(255,231,122,.78) 0 14%, rgba(255,111,177,.72) 15% 38%, rgba(139,92,246,.78) 39% 65%, rgba(98,214,255,.52) 66% 100%);
+      box-shadow: 0 26px 58px rgba(76,29,149,.24), 0 0 52px rgba(255,111,177,.22);
+      overflow: hidden;
     }
 
-    .video-frame iframe,
-    .video-frame video {
-      width: 100%;
+    .scanner-orb::before,
+    .scanner-orb::after {
+      content: "";
+      position: absolute;
+      inset: 17%;
+      border: 2px solid rgba(255,255,255,.45);
+      border-radius: 50%;
+      animation: scannerPulse 2.4s ease-in-out infinite;
+    }
+
+    .scanner-orb::after {
+      inset: 30%;
+      animation-delay: -.8s;
+    }
+
+    .scan-face {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(3.2rem, 10vw, 5.4rem);
+      filter: drop-shadow(0 12px 18px rgba(76,29,149,.18));
+    }
+
+    .scan-panel.scanning .scan-face {
+      animation: scanWiggle .55s var(--spring) infinite alternate;
+    }
+
+    .scan-beam {
+      position: absolute;
+      left: -20%;
+      top: 0;
+      width: 32%;
       height: 100%;
-      border: 0;
-      display: block;
-      border-radius: 20px;
-      background: #120820;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.76), transparent);
+      transform: skewX(-14deg);
+      opacity: 0;
     }
 
-    .video-placeholder,
+    .scan-panel.scanning .scan-beam {
+      opacity: 1;
+      animation: scanSweep 1.05s ease-in-out infinite;
+    }
+
+    .scan-meter {
+      overflow: hidden;
+      width: min(100%, 520px);
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.24);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.34);
+    }
+
+    .scan-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--pink), var(--purple), var(--sky), var(--yellow));
+      transition: width .45s var(--ease);
+    }
+
+    .scan-results {
+      display: grid;
+      gap: 10px;
+      width: min(100%, 560px);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .scan-results li {
+      padding: 12px 16px;
+      border: 1px solid rgba(76, 29, 149, .22);
+      border-radius: 18px;
+      color: var(--ink);
+      background: rgba(255,255,255,.6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.5);
+      font-weight: 850;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .scan-results.show li {
+      animation: popIn .5s var(--spring) forwards;
+    }
+
+    .scan-results.show li:nth-child(2) {
+      animation-delay: .12s;
+    }
+
+    .scan-results.show li:nth-child(3) {
+      animation-delay: .24s;
+    }
+
+    .scan-panel.complete .button-row {
+      order: 4;
+    }
+
+    .scan-panel.complete .scan-results {
+      order: 5;
+    }
+
     .spotify-placeholder {
       display: grid;
       height: 100%;
       place-items: center;
       padding: 24px;
-      color: var(--white);
+      color: var(--ink);
       text-align: center;
     }
 
@@ -886,7 +1018,7 @@
 
     .letter-paper .signature {
       margin-top: 8px;
-      color: var(--purple);
+      color: var(--deep-purple);
       font-weight: 900;
       text-align: right;
     }
@@ -1082,14 +1214,14 @@
     }
 
     .wish-text {
-      color: rgba(255,255,255,.95);
+      color: var(--ink);
       font-size: clamp(1rem, 2.2vw, 1.28rem);
       font-weight: 850;
     }
 
     .mic-status {
       min-height: 24px;
-      color: rgba(255,255,255,.82);
+      color: var(--muted);
       font-size: .95rem;
       font-weight: 800;
     }
@@ -1410,6 +1542,445 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    .achievement-stack {
+      position: fixed;
+      top: 92px;
+      right: 18px;
+      z-index: 125;
+      display: grid;
+      gap: 10px;
+      width: min(92vw, 330px);
+      pointer-events: none;
+    }
+
+    .achievement-card {
+      padding: 13px 15px;
+      border: 1px solid rgba(255,255,255,.38);
+      border-radius: 18px;
+      color: var(--white);
+      background: linear-gradient(135deg, rgba(31,18,55,.86), rgba(139,92,246,.62));
+      box-shadow: 0 18px 50px rgba(76,29,149,.24), inset 0 1px 0 rgba(255,255,255,.28);
+      backdrop-filter: blur(18px);
+      font-weight: 900;
+      transform: translateX(110%);
+      opacity: 0;
+      animation: achievementSlide 3.2s var(--ease) forwards;
+    }
+
+    .gift-mission {
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+    }
+
+    .gift-stage {
+      position: relative;
+      display: grid;
+      width: min(72vw, 340px);
+      aspect-ratio: 1 / .92;
+      place-items: center;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      filter: drop-shadow(0 28px 48px rgba(76,29,149,.24));
+    }
+
+    .gift-stage.big {
+      width: min(84vw, 430px);
+      animation: giftDrop .72s var(--spring) both;
+    }
+
+    .gift-stage .gift,
+    .gift-stage .gift-lid,
+    .gift-stage .bow {
+      pointer-events: none;
+    }
+
+    .gift-stage.opened .gift-lid {
+      animation: none;
+      transform: translateY(-36px) rotate(-18deg);
+    }
+
+    .gift-empty {
+      position: absolute;
+      inset: 36% 25% 22%;
+      display: grid;
+      place-items: center;
+      border-radius: 22px;
+      color: var(--white);
+      background: rgba(20,10,35,.8);
+      font-weight: 900;
+      opacity: 0;
+      transform: scale(.82);
+      transition: opacity .28s ease, transform .28s var(--spring);
+    }
+
+    .gift-stage.opened .gift-empty {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .do-not-card {
+      width: min(100%, 680px);
+    }
+
+    .forbidden-btn {
+      --button-bg: linear-gradient(135deg, #d92a4f, #86102f);
+      min-width: min(100%, 280px);
+      box-shadow: 0 20px 50px rgba(255,49,93,.36), 0 0 34px rgba(255,49,93,.26);
+      color: var(--white);
+      text-shadow: 0 1px 2px rgba(0,0,0,.3);
+      letter-spacing: 0;
+    }
+
+    .magic-wand {
+      position: fixed;
+      left: -110px;
+      top: 30%;
+      z-index: 115;
+      width: 96px;
+      height: 22px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #fff7df 0 18%, #8b5cf6 18% 100%);
+      box-shadow: 0 0 28px rgba(255,231,122,.8);
+      transform: rotate(-24deg);
+      animation: wandFly 1.8s var(--ease) forwards;
+      pointer-events: none;
+    }
+
+    .magic-wand::before {
+      content: "";
+      position: absolute;
+      right: -16px;
+      top: 50%;
+      width: 28px;
+      height: 28px;
+      background: var(--yellow);
+      box-shadow: 0 0 26px rgba(255,231,122,.92);
+      clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 56%, 79% 92%, 50% 70%, 21% 92%, 32% 56%, 2% 35%, 39% 35%);
+      transform: translateY(-50%);
+    }
+
+    .magic-upgraded {
+      background-size: 150% 150%;
+    }
+
+    .magic-upgraded .btn {
+      box-shadow: 0 18px 38px rgba(76,29,149,.30), 0 0 28px rgba(255,231,122,.25), inset 0 1px 0 rgba(255,255,255,.32);
+    }
+
+    .music-mode .vinyl {
+      animation-duration: 4.8s;
+    }
+
+    .music-mode .eq-bar {
+      animation-duration: .72s;
+    }
+
+    .music-mode #soundtrack .btn {
+      animation: beatBounce 1.18s ease-in-out infinite;
+    }
+
+    .music-mode .ambient-balloon {
+      animation-duration: 6.5s;
+    }
+
+    .music-mode .ambient-star {
+      animation-duration: 2.2s;
+    }
+
+    .music-mode .duck {
+      animation-timing-function: ease-in-out;
+    }
+
+    .music-mode .duck-body {
+      animation: duckDance .7s ease-in-out infinite alternate;
+    }
+
+    .screen-shake {
+      animation: screenShake .46s ease-in-out;
+    }
+
+    .shooting-star {
+      position: fixed;
+      z-index: 130;
+      width: 130px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0), #fff7df, rgba(98,214,255,.9));
+      box-shadow: 0 0 18px rgba(255,255,255,.9);
+      transform: rotate(-18deg);
+      animation: shootingStar 1.7s linear forwards;
+      cursor: pointer;
+    }
+
+    .ufo {
+      position: fixed;
+      left: -130px;
+      top: 18%;
+      z-index: 24;
+      width: 86px;
+      height: 42px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 35%, #fff 0 10%, #62d6ff 11% 25%, transparent 26%), linear-gradient(180deg, #d9c7ff, #8b5cf6);
+      box-shadow: 0 0 24px rgba(98,214,255,.45);
+      animation: ufoFly 7.4s linear forwards;
+      pointer-events: none;
+    }
+
+    .ufo::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: -5px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff7df;
+      box-shadow: 0 0 22px rgba(255,231,122,.5);
+    }
+
+    .ufo::after {
+      content: "";
+      position: absolute;
+      left: 30px;
+      top: 34px;
+      width: 28px;
+      height: 90px;
+      background: linear-gradient(180deg, rgba(255,231,122,.35), rgba(255,231,122,0));
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      animation: beamPulse 1.4s ease-in-out infinite;
+    }
+
+    .ufo-balloon {
+      position: fixed;
+      z-index: 23;
+      width: 28px;
+      height: 38px;
+      border-radius: 52% 52% 47% 47%;
+      background: linear-gradient(135deg, var(--pink), var(--sky));
+      animation: beamBalloon 4.2s ease-in forwards;
+      pointer-events: none;
+    }
+
+    .cat-cameo {
+      position: fixed;
+      bottom: 116px;
+      z-index: 24;
+      width: 72px;
+      height: 64px;
+      border-radius: 50% 50% 42% 42%;
+      background: linear-gradient(135deg, #fff7df, #ffb6d4);
+      box-shadow: 0 16px 28px rgba(76,29,149,.16);
+      animation: catPeek 4.8s ease-in-out forwards;
+      pointer-events: none;
+    }
+
+    .cat-cameo.right {
+      right: -82px;
+      transform: scaleX(-1);
+      animation-name: catPeekRight;
+    }
+
+    .cat-cameo.left {
+      left: -82px;
+    }
+
+    .cat-cameo::before,
+    .cat-cameo::after {
+      content: "";
+      position: absolute;
+    }
+
+    .cat-cameo::before {
+      left: 13px;
+      top: -7px;
+      width: 46px;
+      height: 22px;
+      background:
+        linear-gradient(135deg, #fff7df 0 48%, transparent 49%),
+        linear-gradient(225deg, #ffb6d4 0 48%, transparent 49%);
+      clip-path: polygon(0 100%, 18% 0, 42% 100%, 58% 100%, 82% 0, 100% 100%);
+    }
+
+    .cat-cameo::after {
+      left: 20px;
+      top: 26px;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #241a38;
+      box-shadow: 24px 0 0 #241a38, 12px 13px 0 -2px #ff6fb1;
+    }
+
+    .duck-removal {
+      position: fixed;
+      z-index: 118;
+      width: 90px;
+      height: 68px;
+      pointer-events: none;
+      animation: duckRemove 2.7s var(--ease) forwards;
+    }
+
+    .duck-removal.follow {
+      animation-delay: .22s;
+      opacity: .82;
+      scale: .78;
+    }
+
+    .mascot-guide {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 96;
+      display: grid;
+      justify-items: end;
+      gap: 10px;
+      width: min(76vw, 280px);
+      pointer-events: none;
+    }
+
+    .mascot-bubble {
+      max-width: 240px;
+      padding: 11px 13px;
+      border: 1px solid rgba(255,255,255,.42);
+      border-radius: 18px 18px 6px 18px;
+      color: var(--white);
+      background: rgba(31,18,55,.76);
+      box-shadow: 0 18px 46px rgba(76,29,149,.24), inset 0 1px 0 rgba(255,255,255,.22);
+      backdrop-filter: blur(18px);
+      font-size: .9rem;
+      font-weight: 850;
+      line-height: 1.35;
+      text-align: left;
+      opacity: 0;
+      transform: translateY(10px) scale(.96);
+      transition: opacity .28s ease, transform .28s var(--spring);
+    }
+
+    .mascot-bubble.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .mascot-character {
+      position: relative;
+      display: grid;
+      width: 74px;
+      height: 78px;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 28px 28px 32px 32px;
+      background:
+        radial-gradient(circle at 32% 22%, rgba(255,255,255,.88), transparent 18%),
+        linear-gradient(135deg, #fff7df, #ffaad0 52%, #d9c7ff);
+      box-shadow: 0 18px 42px rgba(76,29,149,.24), inset 0 1px 0 rgba(255,255,255,.62);
+      cursor: pointer;
+      pointer-events: auto;
+      animation: mascotIdle 3.4s ease-in-out infinite;
+    }
+
+    .mascot-character::before {
+      content: "";
+      position: absolute;
+      left: 16px;
+      top: -22px;
+      width: 42px;
+      height: 36px;
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+      background: linear-gradient(135deg, var(--pink), var(--sky));
+      transform: rotate(-4deg);
+      filter: drop-shadow(0 8px 12px rgba(76,29,149,.18));
+    }
+
+    .mascot-character::after {
+      content: "";
+      position: absolute;
+      left: 33px;
+      top: -27px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--yellow);
+      box-shadow: 0 0 14px rgba(255,231,122,.75);
+    }
+
+    .mascot-face {
+      position: relative;
+      width: 46px;
+      height: 32px;
+    }
+
+    .mascot-face::before,
+    .mascot-face::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      width: 8px;
+      height: 11px;
+      border-radius: 999px;
+      background: #241a38;
+      animation: mascotBlink 4.6s ease-in-out infinite;
+    }
+
+    .mascot-face::before {
+      left: 8px;
+    }
+
+    .mascot-face::after {
+      right: 8px;
+    }
+
+    .mascot-mouth {
+      position: absolute;
+      left: 50%;
+      bottom: 2px;
+      width: 22px;
+      height: 12px;
+      border-bottom: 4px solid #ff4f98;
+      border-radius: 0 0 999px 999px;
+      transform: translateX(-50%);
+    }
+
+    .mascot-arm {
+      position: absolute;
+      top: 38px;
+      width: 24px;
+      height: 8px;
+      border-radius: 999px;
+      background: #fff7df;
+      box-shadow: 0 5px 12px rgba(76,29,149,.12);
+    }
+
+    .mascot-arm.left {
+      left: -10px;
+      transform: rotate(18deg);
+    }
+
+    .mascot-arm.right {
+      right: -10px;
+      transform-origin: 0 50%;
+      transform: rotate(-18deg);
+    }
+
+    .mascot-character.wave .mascot-arm.right,
+    .mascot-character.cheer .mascot-arm.right {
+      animation: mascotWave .55s ease-in-out 4;
+    }
+
+    .mascot-character.dance,
+    .mascot-character.cheer {
+      animation: mascotDance .62s ease-in-out infinite alternate;
+    }
+
+    .mascot-character.surprised .mascot-mouth {
+      width: 12px;
+      height: 12px;
+      border: 0;
+      border-radius: 999px;
+      background: #ff4f98;
+    }
+
     @keyframes gradientShift {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -1456,6 +2027,21 @@
     @keyframes popIn {
       from { opacity: 0; transform: translateY(18px) scale(.92); }
       to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes scannerPulse {
+      0%, 100% { transform: scale(.86); opacity: .28; }
+      50% { transform: scale(1.12); opacity: .72; }
+    }
+
+    @keyframes scanSweep {
+      from { transform: translateX(0) skewX(-14deg); }
+      to { transform: translateX(430%) skewX(-14deg); }
+    }
+
+    @keyframes scanWiggle {
+      from { transform: rotate(-3deg) scale(.98); }
+      to { transform: rotate(3deg) scale(1.03); }
     }
 
     @keyframes envelopeFloat {
@@ -1545,9 +2131,106 @@
       to { transform: translate(var(--fx), var(--fy)) scale(.2); opacity: 0; }
     }
 
+    @keyframes achievementSlide {
+      0% { transform: translateX(110%) scale(.96); opacity: 0; }
+      12%, 82% { transform: translateX(0) scale(1); opacity: 1; }
+      100% { transform: translateX(110%) scale(.96); opacity: 0; }
+    }
+
+    @keyframes giftDrop {
+      0% { transform: translateY(-130svh) rotate(-10deg) scale(1.08); }
+      68% { transform: translateY(14px) rotate(4deg) scale(1); }
+      100% { transform: translateY(0) rotate(0); }
+    }
+
+    @keyframes wandFly {
+      0% { transform: translateX(-120px) translateY(40px) rotate(-24deg); opacity: 0; }
+      18% { opacity: 1; }
+      58% { transform: translateX(54vw) translateY(-8px) rotate(-24deg); opacity: 1; }
+      72% { transform: translateX(58vw) translateY(18px) rotate(-14deg); opacity: 1; }
+      100% { transform: translateX(calc(100vw + 160px)) translateY(-24px) rotate(-24deg); opacity: 0; }
+    }
+
+    @keyframes beatBounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      45% { transform: translateY(-2px) scale(1.018); }
+    }
+
+    @keyframes duckDance {
+      from { transform: translateY(0) rotate(-2deg); }
+      to { transform: translateY(-3px) rotate(2deg); }
+    }
+
+    @keyframes screenShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-7px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(3px); }
+    }
+
+    @keyframes shootingStar {
+      from { transform: translate(-20vw, -8vh) rotate(-18deg); opacity: 0; }
+      12% { opacity: 1; }
+      to { transform: translate(118vw, 48vh) rotate(-18deg); opacity: 0; }
+    }
+
+    @keyframes ufoFly {
+      0% { transform: translateX(0) translateY(0) rotate(-2deg); opacity: 0; }
+      8%, 88% { opacity: 1; }
+      100% { transform: translateX(calc(100vw + 260px)) translateY(32px) rotate(3deg); opacity: 0; }
+    }
+
+    @keyframes beamPulse {
+      0%, 100% { opacity: .2; transform: scaleX(.76); }
+      50% { opacity: .68; transform: scaleX(1); }
+    }
+
+    @keyframes beamBalloon {
+      0% { transform: translateY(0); opacity: 0; }
+      12% { opacity: 1; }
+      58% { transform: translateY(-70px); opacity: .95; }
+      100% { transform: translateY(-132px) scale(.35); opacity: 0; }
+    }
+
+    @keyframes catPeek {
+      0%, 100% { transform: translateX(0); opacity: 0; }
+      14%, 72% { transform: translateX(56px); opacity: 1; }
+    }
+
+    @keyframes catPeekRight {
+      0%, 100% { transform: translateX(0) scaleX(-1); opacity: 0; }
+      14%, 72% { transform: translateX(-56px) scaleX(-1); opacity: 1; }
+    }
+
+    @keyframes duckRemove {
+      0% { transform: translateX(0) translateY(0); opacity: 1; }
+      100% { transform: translateX(-115vw) translateY(12px); opacity: 1; }
+    }
+
+    @keyframes mascotIdle {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-5px) rotate(1deg); }
+    }
+
+    @keyframes mascotBlink {
+      0%, 92%, 100% { transform: scaleY(1); }
+      95% { transform: scaleY(.12); }
+    }
+
+    @keyframes mascotWave {
+      0%, 100% { transform: rotate(-18deg); }
+      50% { transform: rotate(-58deg) translateY(-3px); }
+    }
+
+    @keyframes mascotDance {
+      from { transform: translateY(0) rotate(-4deg) scale(1); }
+      to { transform: translateY(-7px) rotate(4deg) scale(1.03); }
+    }
+
     @media (max-width: 760px) {
       .screen {
-        padding: 92px 16px 44px;
+        padding: 92px 16px 110px;
       }
 
       .hud {
@@ -1612,6 +2295,35 @@
         min-width: min(100%, 148px);
         padding-inline: 20px;
       }
+
+      .mascot-guide {
+        right: 10px;
+        bottom: 10px;
+        width: min(82vw, 250px);
+      }
+
+      .mascot-character {
+        width: 60px;
+        height: 64px;
+        border-radius: 22px 22px 26px 26px;
+      }
+
+      .mascot-character::before {
+        left: 12px;
+        top: -19px;
+        width: 36px;
+        height: 31px;
+      }
+
+      .mascot-character::after {
+        left: 27px;
+        top: -24px;
+      }
+
+      .mascot-bubble {
+        max-width: 220px;
+        font-size: .82rem;
+      }
     }
 
     @media (max-height: 760px) and (min-width: 761px) {
@@ -1636,8 +2348,16 @@
         width: min(34vw, 168px);
       }
 
-      .video-card {
-        width: min(100%, 640px);
+      .scan-card {
+        width: min(100%, 650px);
+      }
+
+      .scanner-orb {
+        width: min(42vw, 170px);
+      }
+
+      .scan-panel {
+        gap: 14px;
       }
 
       .letter-paper.open {
@@ -1742,8 +2462,23 @@
       .duck,
       .confetti,
       .balloon,
-      .firework {
+      .firework,
+      .magic-wand,
+      .shooting-star,
+      .ufo,
+      .ufo-balloon,
+      .cat-cameo,
+      .duck-removal {
         display: none !important;
+      }
+
+      .mascot-character {
+        animation: none !important;
+      }
+
+      .mascot-face::before,
+      .mascot-face::after {
+        animation: none !important;
       }
     }
   </style>
@@ -1789,10 +2524,26 @@
               <div class="gift-lid"></div>
               <div class="gift"></div>
             </div>
-            <button class="btn" type="button" data-next="verify">
+            <button class="btn" type="button" data-next="gift">
               <span aria-hidden="true">🎁</span>
               Begin Mission
             </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="gift" aria-labelledby="giftTitle">
+        <div class="stage narrow-stage scene-stack">
+          <p class="eyebrow">Gift Calibration</p>
+          <h2 class="mission-title" id="giftTitle">A Present Appears</h2>
+          <div class="gift-mission" id="giftMission">
+            <button class="gift-stage" id="fakeGiftButton" type="button" aria-label="Open the gift">
+              <div class="bow"></div>
+              <div class="gift-lid"></div>
+              <div class="gift"></div>
+              <div class="gift-empty">empty</div>
+            </button>
+            <p class="lead" id="giftMessage">Click to Open</p>
           </div>
         </div>
       </section>
@@ -1825,19 +2576,36 @@
           </div>
           <div class="mission-accepted" id="acceptedPanel">
             <h3 class="mission-title">Mission Accepted.</h3>
-            <button class="btn" type="button" data-next="video">Continue</button>
+            <button class="btn" type="button" data-next="smileScan">Continue</button>
           </div>
         </div>
       </section>
 
-      <section class="screen hidden" id="video" aria-labelledby="videoTitle">
+      <section class="screen hidden" id="smileScan" aria-labelledby="scanTitle">
         <div class="stage scene-stack">
           <p class="eyebrow">Mission 2</p>
-          <h2 class="mission-title" id="videoTitle">Funny Video</h2>
-          <div class="glass video-card tilt">
-            <div class="video-frame" id="videoFrame"></div>
+          <h2 class="mission-title" id="scanTitle">Smile Scanner</h2>
+          <div class="glass scan-card tilt">
+            <div class="glass-inner scan-panel" id="scanPanel">
+              <div class="scanner-orb" aria-hidden="true">
+                <span class="scan-beam"></span>
+                <span class="scan-face">:)</span>
+              </div>
+              <p class="lead" id="scanStatus">Mission control needs one quick happiness scan.</p>
+              <div class="scan-meter" aria-label="Smile scan progress">
+                <div class="scan-fill" id="scanFill"></div>
+              </div>
+              <ul class="scan-results hidden" id="scanResults">
+                <li>Smile detected: premium birthday grade.</li>
+                <li>Joy levels: suspiciously high.</li>
+                <li>Official result: cleared for the next surprise.</li>
+              </ul>
+              <div class="button-row">
+                <button class="btn" type="button" id="scanStart">Start Smile Scan</button>
+                <button class="btn hidden" type="button" id="scanContinue" data-next="letter">Report Accepted</button>
+              </div>
+            </div>
           </div>
-          <button class="btn disabled" type="button" id="survivedButton" disabled>😂 I Survived</button>
         </div>
       </section>
 
@@ -1908,7 +2676,21 @@
               <button class="btn secondary" type="button" id="micButton">Use Mic</button>
             </div>
             <p class="mic-status" id="micStatus" aria-live="polite"></p>
-            <button class="btn hidden" type="button" id="cakeContinue" data-next="finalQuestion">Continue</button>
+            <button class="btn hidden" type="button" id="cakeContinue" data-next="doNotPress">Continue</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="doNotPress" aria-labelledby="doNotTitle">
+        <div class="stage scene-stack">
+          <p class="eyebrow">Bonus Warning</p>
+          <div class="glass do-not-card tilt">
+            <div class="glass-inner scene-stack">
+              <h2 class="mission-title" id="doNotTitle">One Tiny Rule</h2>
+              <p class="lead">This button is extremely suspicious.</p>
+              <button class="btn forbidden-btn" type="button" id="doNotButton">DO NOT PRESS</button>
+              <p class="lead hidden" id="doNotMessage">I literally told you not to press it.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -1942,16 +2724,25 @@
       </section>
     </main>
 
+    <div class="mascot-guide" id="mascotGuide" aria-live="polite">
+      <div class="mascot-bubble" id="mascotBubble"></div>
+      <button class="mascot-character" id="mascotButton" type="button" aria-label="Birthday mission guide">
+        <span class="mascot-arm left" aria-hidden="true"></span>
+        <span class="mascot-arm right" aria-hidden="true"></span>
+        <span class="mascot-face" aria-hidden="true">
+          <span class="mascot-mouth"></span>
+        </span>
+      </button>
+    </div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="achievement-stack" id="achievementStack" aria-live="polite"></div>
   </div>
 
   <script>
     const birthdayConfig = {
       recipientName: "Birthday Star",
       senderName: "Oussama",
-      jibjabVideoUrl: "",
       spotifyPlaylistUrl: "https://open.spotify.com/track/6n30D6vK0xN4XjA8u64F5E?si=4f6a9a658d5c4265&nd=1&dlsi=970ff91f46774298",
-      videoRevealSeconds: 12,
       colors: {
         pink: "#ff6fb1",
         purple: "#8b5cf6",
@@ -1976,24 +2767,34 @@
       noAttempts: 0,
       finalNoAttempts: 0,
       loadingStarted: false,
-      videoStarted: false,
+      giftOpened: false,
+      scanStarted: false,
       letterOpened: false,
       cakeDone: false,
+      doNotPressed: false,
+      magicUpgraded: false,
+      finalDuckDone: false,
+      firstButtonAchievement: false,
       micStream: null,
       micRaf: null,
       duckTimer: null,
+      catTimer: null,
+      mascotTimer: null,
+      mascotHideTimer: null,
       fireworksTimer: null
     };
 
-    const scenes = ["intro", "verify", "loading", "video", "letter", "soundtrack", "cakeScene", "finalQuestion", "ending"];
+    const scenes = ["intro", "gift", "verify", "loading", "smileScan", "letter", "soundtrack", "cakeScene", "doNotPress", "finalQuestion", "ending"];
     const missionLabels = {
       intro: "Incoming Transmission",
+      gift: "Gift Calibration",
       verify: "Mission 1: Verification",
       loading: "Mission Accepted",
-      video: "Mission 2: Video",
+      smileScan: "Mission 2: Smile Scanner",
       letter: "Mission 3: Letter",
       soundtrack: "Mission 4: Soundtrack",
       cakeScene: "Mission 5: Cake",
+      doNotPress: "Bonus Warning",
       finalQuestion: "Final Mission",
       ending: "Mission Complete"
     };
@@ -2016,14 +2817,21 @@
       soundIcon: $("#soundIcon"),
       terminalText: $("#terminalText"),
       introReveal: $("#introReveal"),
+      fakeGiftButton: $("#fakeGiftButton"),
+      giftMission: $("#giftMission"),
+      giftMessage: $("#giftMessage"),
       birthdayYes: $("#birthdayYes"),
       birthdayNo: $("#birthdayNo"),
       verifyZone: $("#verifyZone"),
       loadingMessage: $("#loadingMessage"),
       loadingBar: $("#loadingBar"),
       acceptedPanel: $("#acceptedPanel"),
-      videoFrame: $("#videoFrame"),
-      survivedButton: $("#survivedButton"),
+      scanPanel: $("#scanPanel"),
+      scanStatus: $("#scanStatus"),
+      scanFill: $("#scanFill"),
+      scanResults: $("#scanResults"),
+      scanStart: $("#scanStart"),
+      scanContinue: $("#scanContinue"),
       envelope: $("#envelope"),
       letterPaper: $("#letterPaper"),
       letterContinue: $("#letterContinue"),
@@ -2033,11 +2841,16 @@
       micButton: $("#micButton"),
       micStatus: $("#micStatus"),
       cakeContinue: $("#cakeContinue"),
+      doNotButton: $("#doNotButton"),
+      doNotMessage: $("#doNotMessage"),
       finalZone: $("#finalZone"),
       finalYes: $("#finalYes"),
       finalNo: $("#finalNo"),
       endingPlayer: $("#endingPlayer"),
-      toast: $("#toast")
+      mascot: $("#mascotButton"),
+      mascotBubble: $("#mascotBubble"),
+      toast: $("#toast"),
+      achievements: $("#achievementStack")
     };
 
     const random = (min, max) => Math.random() * (max - min) + min;
@@ -2094,11 +2907,16 @@
 
       document.body.classList.toggle("dark-start", nextScene === "intro" && !els.introReveal.classList.contains("show"));
       document.body.classList.toggle("night-mode", nextScene === "ending");
+      document.body.classList.toggle("music-mode", nextScene === "soundtrack");
 
       if (nextScene === "loading") startLoading();
-      if (nextScene === "video") startVideoMission();
-      if (nextScene === "soundtrack") renderSpotify();
+      if (nextScene === "soundtrack") {
+        renderSpotify();
+        triggerMagicUpgrade();
+      }
       if (nextScene === "ending") startEnding();
+      maybeAwardAchievement();
+      mascotForScene(nextScene);
     }
 
     function unlockSound() {
@@ -2218,6 +3036,262 @@
       els.toast.classList.add("show");
       clearTimeout(showToast.timer);
       showToast.timer = setTimeout(() => els.toast.classList.remove("show"), 2400);
+    }
+
+    const achievementMessages = [
+      "Clicked Your First Button",
+      "Confetti Survivor",
+      "Birthday Explorer",
+      "Professional Duck Watcher",
+      "Curiosity Level 100",
+      "Cake Inspector",
+      "Official Party Guest",
+      "Certified Birthday Human",
+      "Mission Progress +10%"
+    ];
+
+    const mascotDialogue = {
+      intro: [
+        "Welcome to the Birthday Mission!",
+        "Today's objective: make someone smile.",
+        "I've been waiting all year for this."
+      ],
+      explore: [
+        "Keep going...",
+        "The next part is my favorite.",
+        "Something fun is coming...",
+        "You're doing great!",
+        "I hope you like surprises.",
+        "Everything is under control... probably.",
+        "This mission is classified."
+      ],
+      funny: [
+        "I definitely didn't eat the cake.",
+        "Don't trust the ducks.",
+        "Seriously... don't trust them.",
+        "The NO button has trust issues.",
+        "I think the balloons are planning something.",
+        "I saw that click.",
+        "The confetti budget is getting out of hand.",
+        "Achievement hunting, are we?"
+      ],
+      ending: [
+        "We're almost there...",
+        "One last surprise...",
+        "I think you're going to like this.",
+        "Thanks for playing along.",
+        "Mission accomplished!",
+        "Happy Birthday!",
+        "See you next year!"
+      ]
+    };
+
+    function showAchievement(message) {
+      const card = document.createElement("div");
+      card.className = "achievement-card";
+      card.textContent = `Achievement Unlocked: ${message}`;
+      els.achievements.appendChild(card);
+      setTimeout(() => card.remove(), 3400);
+    }
+
+    function maybeAwardAchievement(message = "") {
+      if (message) {
+        showAchievement(message);
+        mascotSpeak(pick(["Nice!", "That was impressive.", "Achievement hunting, are we?"]), "cheer");
+        return;
+      }
+      if (Math.random() < .24) {
+        showAchievement(pick(achievementMessages));
+      }
+    }
+
+    function mascotSpeak(message, mood = "wave", duration = 4200) {
+      if (!els.mascot || !els.mascotBubble) return;
+      els.mascotBubble.textContent = message;
+      els.mascotBubble.classList.add("show");
+      els.mascot.classList.remove("wave", "dance", "cheer", "surprised");
+      if (mood) els.mascot.classList.add(mood);
+      clearTimeout(state.mascotHideTimer);
+      state.mascotHideTimer = setTimeout(() => {
+        els.mascotBubble.classList.remove("show");
+        els.mascot.classList.remove("wave", "dance", "cheer", "surprised");
+      }, duration);
+    }
+
+    function scheduleMascotComment(immediate = false) {
+      clearTimeout(state.mascotTimer);
+      const delay = immediate ? 1200 : random(20000, 40000);
+      state.mascotTimer = setTimeout(() => {
+        const pool = state.scene === "ending"
+          ? mascotDialogue.ending
+          : state.scene === "intro"
+            ? mascotDialogue.intro
+            : [...mascotDialogue.explore, ...mascotDialogue.funny];
+        mascotSpeak(pick(pool), Math.random() > .82 ? "surprised" : "wave");
+        scheduleMascotComment();
+      }, delay);
+    }
+
+    function mascotForScene(scene) {
+      const sceneMessages = {
+        gift: ["A gift? Suspicious. I like it."],
+        verify: ["The NO button has trust issues."],
+        smileScan: ["Smile scan initialized. Very official."],
+        letter: ["Quiet moment. I will behave."],
+        soundtrack: ["Dance mode is ready."],
+        cakeScene: ["I definitely didn't eat the cake."],
+        doNotPress: ["That button looks extremely pressable."],
+        finalQuestion: ["We're almost there... one last choice."],
+        ending: ["Mission accomplished! Happy Birthday!"]
+      };
+      if (sceneMessages[scene]) {
+        mascotSpeak(pick(sceneMessages[scene]), scene === "soundtrack" || scene === "ending" ? "dance" : "wave");
+      }
+    }
+
+    function handleGiftOpen() {
+      if (state.giftOpened) return;
+      state.giftOpened = true;
+      mascotSpeak("I knew that gift looked too small.", "surprised");
+      els.fakeGiftButton.classList.add("opened");
+      els.giftMessage.textContent = "Opening...";
+      sparkleAt(window.innerWidth / 2, window.innerHeight * .46, 16);
+      maybeAwardAchievement("Suspicious Gift Inspector");
+
+      setTimeout(() => {
+        els.giftMessage.textContent = "...Oops.";
+      }, 850);
+
+      setTimeout(() => {
+        els.fakeGiftButton.classList.remove("opened");
+        els.giftMessage.textContent = "Wait. Wrong gift.";
+      }, 1700);
+
+      setTimeout(() => {
+        document.body.classList.add("screen-shake");
+        els.fakeGiftButton.classList.add("big");
+        els.giftMessage.textContent = "That was the wrong gift.";
+        confettiBurst(window.innerWidth / 2, window.innerHeight * .38, 90);
+        playSound("confetti");
+      }, 2300);
+
+      setTimeout(() => {
+        document.body.classList.remove("screen-shake");
+        els.fakeGiftButton.classList.add("opened");
+        els.giftMessage.textContent = "Correct gift located.";
+      }, 3150);
+
+      setTimeout(() => {
+        setScene("verify");
+      }, 4100);
+    }
+
+    function triggerMagicUpgrade() {
+      if (state.magicUpgraded || state.reducedMotion) return;
+      state.magicUpgraded = true;
+      const wand = document.createElement("span");
+      wand.className = "magic-wand";
+      document.body.appendChild(wand);
+
+      setTimeout(() => {
+        document.body.classList.add("magic-upgraded");
+        balloonsRise(16);
+        confettiRain(80, 2600);
+        sparkleAt(window.innerWidth * .58, window.innerHeight * .42, 28);
+        showToast("Website upgraded with Birthday Magic!");
+        mascotSpeak("Birthday magic installed successfully.", "cheer");
+        maybeAwardAchievement("Curiosity Level 100");
+      }, 1120);
+
+      setTimeout(() => wand.remove(), 2100);
+    }
+
+    function handleDoNotPress() {
+      if (state.doNotPressed) return;
+      state.doNotPressed = true;
+      mascotSpeak("I saw that click.", "surprised");
+      els.doNotButton.disabled = true;
+      els.doNotButton.classList.add("disabled");
+      els.doNotMessage.classList.remove("hidden");
+      document.body.classList.add("screen-shake");
+      confettiBurst(window.innerWidth / 2, window.innerHeight * .42, 180);
+      confettiRain(190, 5200);
+      balloonsRise(34);
+      launchFireworks(7);
+      playSound("confetti");
+      showToast("I literally told you not to press it.");
+      maybeAwardAchievement("Official Rule Breaker");
+      setTimeout(() => document.body.classList.remove("screen-shake"), 520);
+      setTimeout(() => setScene("finalQuestion"), 2600);
+    }
+
+    function handleDuckPointer(event) {
+      if (event.target.closest?.("button, a, input, textarea, select, [role='button']")) return;
+      const ducks = $$(".duck", els.ducks);
+      for (const duck of ducks) {
+        const rect = duck.getBoundingClientRect();
+        const inside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+        if (!inside) continue;
+        sparkleAt(event.clientX, event.clientY, 14);
+        playSound("quack");
+        showToast("Achievement Unlocked: Duck Whisperer");
+        mascotSpeak("I warned you about the ducks.", "wave");
+        maybeAwardAchievement("Duck Whisperer");
+        return;
+      }
+    }
+
+    function launchShootingStar() {
+      if (state.reducedMotion || state.scene !== "ending") return;
+      const star = document.createElement("button");
+      star.className = "shooting-star";
+      star.type = "button";
+      star.setAttribute("aria-label", "Catch the shooting star");
+      star.style.left = `${random(-12, 12)}vw`;
+      star.style.top = `${random(4, 24)}vh`;
+      star.addEventListener("click", event => {
+        event.stopPropagation();
+        const center = getCenter(star);
+        sparkleAt(center.x, center.y, 24);
+        maybeAwardAchievement("Lucky Wish");
+        star.remove();
+      }, { once: true });
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1800);
+    }
+
+    function maybeLaunchUfo() {
+      if (state.reducedMotion || Math.random() > .02) return;
+      const top = random(12, 34);
+      const ufo = document.createElement("span");
+      const balloon = document.createElement("span");
+      ufo.className = "ufo";
+      balloon.className = "ufo-balloon";
+      ufo.style.top = `${top}vh`;
+      balloon.style.left = `${random(38, 58)}vw`;
+      balloon.style.top = `${top + 18}vh`;
+      document.body.append(ufo, balloon);
+      setTimeout(() => {
+        ufo.remove();
+        balloon.remove();
+      }, 7600);
+    }
+
+    function scheduleCatCameo() {
+      if (state.reducedMotion) return;
+      clearTimeout(state.catTimer);
+      state.catTimer = setTimeout(() => {
+        spawnCatCameo();
+        scheduleCatCameo();
+      }, random(28000, 56000));
+    }
+
+    function spawnCatCameo() {
+      if (state.reducedMotion) return;
+      const cat = document.createElement("span");
+      cat.className = `cat-cameo ${Math.random() > .5 ? "right" : "left"}`;
+      document.body.appendChild(cat);
+      setTimeout(() => cat.remove(), 5000);
     }
 
     function createAmbient() {
@@ -2426,6 +3500,11 @@
       button.style.right = "auto";
       button.style.transform = `rotate(${pick(rotations)}deg) scale(${pick(scales)})`;
       button.textContent = pick(phrases);
+      if (Math.random() > .45) {
+        button.textContent = pick(mode === "final"
+          ? ["NO?", "Too Slow!", "Catch Me If You Can", "Plot twist!", "Not today"]
+          : ["Nice Try :)", "Nope!", "Too Slow!", "Impossible!", "Error 404: NO Not Found", "Catch Me If You Can"]);
+      }
 
       if (mode === "final" && Math.random() > .68) {
         button.classList.add("duckify");
@@ -2459,6 +3538,7 @@
           els.birthdayNo.style.opacity = "0";
           els.birthdayNo.style.pointerEvents = "none";
           showToast("The No button has left the mission.");
+          mascotSpeak("The NO button has officially panicked.", "surprised");
         }, 420);
       }
     }
@@ -2527,56 +3607,40 @@
       return trimmed;
     }
 
-    function startVideoMission() {
-      if (state.videoStarted) return;
-      state.videoStarted = true;
-      renderVideo();
-      const seconds = birthdayConfig.jibjabVideoUrl ? birthdayConfig.videoRevealSeconds : 6;
+    function runSmileScan() {
+      if (state.scanStarted) return;
+      state.scanStarted = true;
+      mascotSpeak("Hold still. The science is very birthday.", "wave");
+      els.scanStart.disabled = true;
+      els.scanStart.classList.add("disabled");
+      els.scanPanel.classList.add("scanning");
+      els.scanStatus.textContent = "Scanning smile particles...";
+      els.scanFill.style.width = "18%";
+      maybeAwardAchievement("Certified Birthday Human");
+
       setTimeout(() => {
-        els.survivedButton.disabled = false;
-        els.survivedButton.classList.remove("disabled");
+        els.scanFill.style.width = "46%";
+        els.scanStatus.textContent = "Measuring joy levels...";
+      }, 650);
+
+      setTimeout(() => {
+        els.scanFill.style.width = "74%";
+        els.scanStatus.textContent = "Cross-checking birthday sparkle...";
+      }, 1350);
+
+      setTimeout(() => {
+        els.scanFill.style.width = "100%";
+        els.scanPanel.classList.remove("scanning");
+        els.scanPanel.classList.add("complete");
+        els.scanStart.classList.add("hidden");
+        els.scanStatus.textContent = "Scan complete. You are officially cleared for more birthday magic.";
+        els.scanResults.classList.remove("hidden");
+        els.scanResults.classList.add("show");
+        els.scanContinue.classList.remove("hidden");
+        confettiBurst(window.innerWidth / 2, window.innerHeight * .45, 90);
         playSound("success");
-      }, seconds * 1000);
-    }
-
-    function renderVideo() {
-      const url = normalizeEmbedUrl(birthdayConfig.jibjabVideoUrl, "video");
-      els.videoFrame.innerHTML = "";
-
-      if (!url) {
-        const placeholder = document.createElement("div");
-        placeholder.className = "video-placeholder";
-        placeholder.innerHTML = `
-          <div class="placeholder-badge">
-            <div class="placeholder-icon" aria-hidden="true">😂</div>
-            <p class="lead" style="margin:0;">Paste the JibJab video URL into <strong>birthdayConfig.jibjabVideoUrl</strong>.</p>
-          </div>
-        `;
-        els.videoFrame.appendChild(placeholder);
-        return;
-      }
-
-      if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(url)) {
-        const video = document.createElement("video");
-        video.src = url;
-        video.controls = true;
-        video.playsInline = true;
-        video.addEventListener("ended", () => {
-          els.survivedButton.disabled = false;
-          els.survivedButton.classList.remove("disabled");
-          playSound("success");
-        }, { once: true });
-        els.videoFrame.appendChild(video);
-        return;
-      }
-
-      const iframe = document.createElement("iframe");
-      iframe.src = url;
-      iframe.title = "Birthday video";
-      iframe.allow = "autoplay; fullscreen; picture-in-picture";
-      iframe.allowFullscreen = true;
-      iframe.loading = "lazy";
-      els.videoFrame.appendChild(iframe);
+        mascotSpeak("Scan complete. Extremely smiley.", "cheer");
+      }, 2300);
     }
 
     function openLetter() {
@@ -2647,6 +3711,7 @@
       playSound("cheer");
       els.cakeContinue.classList.remove("hidden");
       els.micStatus.textContent = "Wish delivered.";
+      mascotSpeak("Wish delivered. Very official.", "cheer");
     }
 
     async function startMic() {
@@ -2704,6 +3769,7 @@
 
     function handleFinalNo(event) {
       event.preventDefault();
+      if (state.finalDuckDone) return;
       state.finalNoAttempts += 1;
       moveRunawayButton(els.finalNo, els.finalZone, "final");
 
@@ -2711,33 +3777,82 @@
         showToast("The NO button is entering witness protection.");
       }
 
-      if (state.finalNoAttempts >= 7) {
-        const center = getCenter(els.finalNo);
-        els.finalNo.textContent = "poof";
-        els.finalNo.style.transform = "rotate(720deg) scale(.2)";
-        setTimeout(() => {
-          smokeAt(center.x, center.y, 2);
-          els.finalNo.style.opacity = "0";
-          els.finalNo.style.pointerEvents = "none";
-          showToast("Only YES remains. Democracy has spoken.");
-        }, 320);
+      if (state.finalNoAttempts >= 6) {
+        startFinalDuckRemoval();
       }
+    }
+
+    function duckParts(hasHat = false) {
+      return `
+        <span class="duck-body"></span>
+        <span class="duck-head"></span>
+        <span class="duck-beak"></span>
+        <span class="duck-eye"></span>
+        <span class="duck-wing"></span>
+        <span class="duck-feet"></span>
+        ${hasHat ? '<span class="duck-hat"></span>' : ""}
+      `;
+    }
+
+    function startFinalDuckRemoval() {
+      if (state.finalDuckDone) return;
+      state.finalDuckDone = true;
+      const center = getCenter(els.finalNo);
+      smokeAt(center.x, center.y, 1.4);
+      els.finalNo.textContent = "claimed";
+      els.finalNo.style.transition = "transform 2.7s var(--ease), opacity .3s ease";
+      els.finalNo.style.transform = "translateX(-120vw) rotate(-10deg) scale(.86)";
+      els.finalNo.style.pointerEvents = "none";
+
+      const leadDuck = document.createElement("div");
+      const followDuck = document.createElement("div");
+      leadDuck.className = "duck-removal";
+      followDuck.className = "duck-removal follow";
+      leadDuck.innerHTML = duckParts(true);
+      followDuck.innerHTML = duckParts(false);
+      leadDuck.style.left = `${center.x + 28}px`;
+      leadDuck.style.top = `${center.y - 36}px`;
+      followDuck.style.left = `${center.x + 116}px`;
+      followDuck.style.top = `${center.y - 28}px`;
+      document.body.append(leadDuck, followDuck);
+
+      const smokeTimer = setInterval(() => {
+        const rect = els.finalNo.getBoundingClientRect();
+        smokeAt(rect.left + rect.width / 2, rect.top + rect.height / 2, .72);
+      }, 380);
+
+      setTimeout(() => {
+        clearInterval(smokeTimer);
+        els.finalNo.style.opacity = "0";
+        leadDuck.remove();
+        followDuck.remove();
+        showToast("The ducks have officially removed the NO option.");
+        mascotSpeak("The ducks handled that with... confidence.", "surprised");
+        maybeAwardAchievement("Professional Duck Watcher");
+      }, 2800);
     }
 
     function finishMission() {
       const center = getCenter(els.finalYes);
       confettiBurst(center.x, center.y, 130);
       playSound("success");
+      mascotSpeak("Mission accomplished!", "cheer");
       setScene("ending");
     }
 
     function startEnding() {
       renderSpotify();
-      confettiRain(180, 8000);
-      balloonsRise(30);
+      els.confetti.innerHTML = "";
+      els.balloons.innerHTML = "";
+      confettiRain(72, 7000);
+      balloonsRise(12);
+      els.mascot.classList.add("dance");
       clearInterval(state.fireworksTimer);
-      state.fireworksTimer = setInterval(() => launchFireworks(1), state.reducedMotion ? 999999 : 1200);
-      launchFireworks(6);
+      state.fireworksTimer = setInterval(() => launchFireworks(1), state.reducedMotion ? 999999 : 1800);
+      launchFireworks(3);
+      if (Math.random() < .28) {
+        setTimeout(launchShootingStar, random(2200, 7200));
+      }
     }
 
     function launchFireworks(count = 1) {
@@ -2781,6 +3896,9 @@
 
       const count = pick([1, 1, 1, 2, 2, 3, 5]);
       const reverse = Math.random() > .5;
+      if (Math.random() > .45) {
+        mascotSpeak(pick(["Duck patrol detected.", "Don't trust the ducks.", "No ducks were harmed while making this website."]), "wave", 3600);
+      }
       for (let i = 0; i < count; i++) {
         setTimeout(() => spawnDuck({ reverse, hasHat: Math.random() > .83, mayStop: Math.random() > .55, scale: i === 0 ? 1 : random(.62, .88) }), i * 450);
       }
@@ -2847,6 +3965,12 @@
           const rect = button.getBoundingClientRect();
           sparkleAt(event.clientX || rect.left + rect.width / 2, event.clientY || rect.top + rect.height / 2, 7);
           playSound("pop");
+          if (!state.firstButtonAchievement) {
+            state.firstButtonAchievement = true;
+            maybeAwardAchievement("Clicked Your First Button");
+          } else {
+            maybeAwardAchievement();
+          }
         }
 
         const next = event.target.closest("[data-next]")?.dataset.next;
@@ -2858,13 +3982,14 @@
         toggleSound();
       });
 
+      els.fakeGiftButton.addEventListener("click", handleGiftOpen);
       els.birthdayNo.addEventListener("pointerenter", handleBirthdayNo);
       els.birthdayNo.addEventListener("pointerdown", handleBirthdayNo);
       els.birthdayNo.addEventListener("keydown", event => {
         if (event.key === "Enter" || event.key === " ") handleBirthdayNo(event);
       });
       els.birthdayYes.addEventListener("click", acceptBirthday);
-      els.survivedButton.addEventListener("click", () => setScene("letter"));
+      els.scanStart.addEventListener("click", runSmileScan);
       els.envelope.addEventListener("click", openLetter);
       els.envelope.addEventListener("keydown", event => {
         if (event.key === "Enter" || event.key === " ") {
@@ -2874,16 +3999,27 @@
       });
       els.blowButton.addEventListener("click", blowOutCandles);
       els.micButton.addEventListener("click", startMic);
+      els.doNotButton.addEventListener("click", handleDoNotPress);
+      els.spotifyFrame.addEventListener("pointerdown", () => {
+        document.body.classList.add("music-mode");
+        mascotSpeak("Dance mode activated.", "dance");
+        maybeAwardAchievement("Official Party Guest");
+      });
       els.finalNo.addEventListener("pointerenter", handleFinalNo);
       els.finalNo.addEventListener("pointerdown", handleFinalNo);
       els.finalNo.addEventListener("keydown", event => {
         if (event.key === "Enter" || event.key === " ") handleFinalNo(event);
       });
       els.finalYes.addEventListener("click", finishMission);
+      els.mascot.addEventListener("click", event => {
+        event.stopPropagation();
+        mascotSpeak(pick([...mascotDialogue.explore, ...mascotDialogue.funny]), "wave");
+      });
 
       window.addEventListener("resize", () => {
         if (state.scene === "ending") launchFireworks(1);
       });
+      document.addEventListener("pointerdown", handleDuckPointer);
     }
 
     function unlockSoundOnFirstClick() {
@@ -2905,7 +4041,10 @@
       renderSpotify();
       runIntroTyping();
       scheduleDucks();
+      scheduleCatCameo();
+      scheduleMascotComment(true);
       setTimeout(() => spawnDuckFamily(true), state.reducedMotion ? 999999 : 9000);
+      setTimeout(maybeLaunchUfo, state.reducedMotion ? 999999 : 12000);
     }
 
     boot();
